@@ -15,6 +15,12 @@
 
 ## 2. 파이프라인 구조
 
+![파이프라인 구조 — LLM·사람·코드가 맡는 자리](docs/pipeline.svg)
+
+LLM 은 `propose` 한 곳에서만 쓰인다. 처음 판단할 때와 담당자가 다시 판정을 시킬 때 불리며, 후보 중 대체품을 고르고 근거·확신도·우려점·고객사 안내문을 정해진 형식으로 낸다. 멈출지는 LLM 이 아니라 `check` 의 규칙이 정하고, LLM 확신도는 그 규칙 중 하나로만 쓰인다. 승인·반려와 발송에는 LLM 이 관여하지 않는다.
+
+<details><summary>Mermaid 코드 (노드 설명 포함)</summary>
+
 ```mermaid
 graph TD
     START([결품 건 입력]) --> gather
@@ -30,6 +36,8 @@ graph TD
     send["send<br/>고객사 안내문 발송 + 발주 변경<br/>(유일하게 바깥으로 나가는 단계)"] --> END([끝])
     escalate["escalate<br/>BM 수동 처리 목록"] --> END
 ```
+
+</details>
 
 **State**
 
