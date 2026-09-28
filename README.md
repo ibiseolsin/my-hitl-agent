@@ -32,7 +32,7 @@ set HITL_FAKE_LLM=1&& set HITL_RUNTIME=runtime_fake&& streamlit run app.py --ser
 | 파일 | 내용 |
 |---|---|
 | `agent.py` | LangGraph 파이프라인 (gather → propose → check → review/send/escalate), SqliteSaver |
-| `criteria.py` | 멈춤 기준 4가지와 임계값 |
+| `criteria.py` | 멈춤 기준 5가지(알레르기·원산지·보관 방식·단가·AI 확신도)와 임계값 |
 | `app.py` | Streamlit 승인 화면 |
 | `evaluate.py` | 기준 조합별 개입률·놓침·헛멈춤 |
 | `data/` | 합성 데이터: 상품 28종, 고객사 4곳, 결품 18건(사람이 붙인 정답 라벨 포함) |
