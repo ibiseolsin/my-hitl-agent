@@ -117,7 +117,11 @@ with tab_wait:
                                                                for c in p["candidates"] if c["id"] == i),
                                     key=f"pick-{eid}")
                 notice = st.text_area("안내문", prop["notice"], height=160, key=f"notice-{eid}")
-                if st.button("수정한 내용으로 발송", type="primary", key=f"edit-{eid}"):
+                # 대체품만 바꾸고 안내문을 그대로 두면 다른 상품 설명이 고객사에 나간다.
+                stale = (sub is None or pick != sub["id"]) and notice.strip() == prop["notice"].strip()
+                if stale:
+                    st.warning("대체품을 바꿨는데 안내문이 AI 초안 그대로입니다. 상품명·알레르기·단가를 고쳐 주세요.")
+                if st.button("수정한 내용으로 발송", type="primary", disabled=stale, key=f"edit-{eid}"):
                     answer = {"action": "edit", "substitute_id": pick, "notice": notice}
             elif action == "반려":
                 reason = st.text_input("반려 사유 (필수)", key=f"why-{eid}")

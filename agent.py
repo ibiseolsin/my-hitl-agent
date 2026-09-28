@@ -55,7 +55,8 @@ class State(TypedDict, total=False):
 
 class Proposal(BaseModel):
     substitute_id: str = Field(description="후보 목록의 상품 ID. 쓸 만한 후보가 없으면 NONE")
-    reason: str = Field(description="이 후보를 고른 근거. 원 상품과 무엇이 같고 무엇이 다른지 2~3문장")
+    reason: str = Field(description="이 후보를 고른 판단 근거 2~3문장. 결품 사유를 반복하지 말고, "
+                                    "다른 후보 대신 이것을 고른 이유와 원 상품 대비 같은 점·다른 점을 쓴다")
     confidence: float = Field(description="고객사가 사람 확인 없이 받아도 문제없을 확신도 0~1")
     concerns: list[str] = Field(description="고객사 운영에 영향을 줄 수 있는 차이점. 없으면 빈 목록")
     notice: str = Field(description="고객사 담당자에게 보낼 대체품 안내문 (4~6줄)")
@@ -108,7 +109,7 @@ def fake_propose(state):
 
     def risk(c):
         return (len(set(c["allergens"]) - set(orig["allergens"])),
-                criteria.origin_changed(orig, c, None) is not None,
+                criteria.origin_changed(orig, c, None, 0) is not None,
                 abs(criteria.price_diff_pct(orig, c)))
 
     if not state["candidates"]:
@@ -153,7 +154,7 @@ def make_propose(proposer):
 
 def check(state):
     sub = PRODUCTS.get(state["proposal"]["substitute_id"])
-    reasons = criteria.stop_reasons(state["original"], sub, state["proposal"])
+    reasons = criteria.stop_reasons(state["original"], sub, state["proposal"], state["event"]["qty"])
     if state.get("retry_count"):
         # 담당자가 다시 판정을 시킨 건은 결과도 담당자가 본다.
         reasons = reasons + [f"담당자 재판정 요청 ({state['retry_count']}회차)"]
