@@ -5,13 +5,14 @@
 
 ## 1단계 — 제출 가능한 완성본
 
-- [ ] **1. 합성 데이터** — 상품 카탈로그·고객사·결품 건(정답 라벨 포함)
+- [x] **1. 합성 데이터** — 상품 카탈로그·고객사·결품 건(정답 라벨 포함)
   - `python -c "import json;[json.load(open(f'data/{n}.json',encoding='utf-8')) for n in ['products','customers','stockouts']]"` 오류 없음
-- [ ] **2. HITL 파이프라인** [선행: 1] — 후보 수집 → LLM 선정 → 기준 검사 → (멈춤|자동) → 통보, SqliteSaver
+- [x] **2. HITL 파이프라인** [선행: 1] — 후보 수집 → LLM 선정 → 기준 검사 → (멈춤|자동) → 통보, SqliteSaver
   - `pytest -q` 로 자동 통과·승인·수정·반려·재판정·재시작 후 재개 경로 통과 (가짜 LLM)
 - [ ] **3. 기준 검증** [선행: 2] — 기준 조합별 개입률·놓침·헛멈춤 표
   - `python evaluate.py` 가 `output/criteria_eval.md` 생성
-- [ ] **4. 웹 데모** [선행: 2] — Streamlit 대기 목록·상세·네 가지 응답·처리 결과
+  - 막힘: OpenAI 429 project_spend_limit_exceeded (2026-09-28). 코드는 완성, LLM 실행만 남음
+- [x] **4. 웹 데모** [선행: 2] — Streamlit 대기 목록·상세·네 가지 응답·처리 결과
   - 127.0.0.1 에서 실행해 대기 건 하나를 승인하고 outbox 에 기록되는 것 확인
 - [ ] **5. README·REPORT·공개 저장소** [선행: 3, 4]
   - REPORT 에 구조도·기준·실행 결과·화면 캡처, `gh repo view` 로 공개 확인
