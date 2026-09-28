@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hitl-fake",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "set HITL_FAKE_LLM=1&& set HITL_RUNTIME=runtime_fake&& .venv\Scripts\streamlit run app.py --server.address 127.0.0.1 --server.port 8503 --server.headless true"],
+      "port": 8503
+    }
+  ]
+}

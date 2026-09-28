@@ -1,0 +1,81 @@
+"""멈춤 기준 검증 — 같은 결품 18건에 기준 조합을 바꿔 적용해 개입률·놓침·헛멈춤을 센다.
+
+    python evaluate.py            # 저장된 AI 제안(output/proposals.json)으로 계산
+    python evaluate.py --refresh  # LLM 을 다시 불러 제안부터 새로 만든다
+
+정답(should_stop)은 data/stockouts.json 에 사람이 붙인 라벨이다.
+"""
+import argparse
+import json
+from pathlib import Path
+
+import agent
+import criteria
+
+OUT = Path(__file__).parent / "output"
+COMBOS = [
+    ("기준 없음 (전부 자동)", []),
+    ("단가 ±10%", ["price"]),
+    ("알레르기 + 원산지", ["allergen", "origin"]),
+    ("알레르기 + 원산지 + 단가", ["allergen", "origin", "price"]),
+    ("알레르기 + 원산지 + 확신도", ["allergen", "origin", "confidence"]),
+    ("알레르기 + 원산지 + 단가 + 확신도 ★채택", ["allergen", "origin", "price", "confidence"]),
+    ("전부 멈춤", None),
+]
+
+
+def proposals(refresh):
+    path = OUT / "proposals.json"
+    if path.exists() and not refresh:
+        return json.loads(path.read_text(encoding="utf-8"))
+    propose = agent.make_propose(agent.default_proposer())
+    result = {}
+    for eid, ev in agent.EVENTS.items():
+        state = {"event": ev, **agent.gather({"event": ev})}
+        result[eid] = propose(state)["proposal"]
+        print(eid, result[eid]["substitute_id"], result[eid]["confidence"])
+    OUT.mkdir(exist_ok=True)
+    path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    return result
+
+
+def did_stop(ev, prop, use):
+    if use is None:
+        return True
+    orig = agent.PRODUCTS[ev["product_id"]]
+    return bool(criteria.stop_reasons(orig, agent.PRODUCTS.get(prop["substitute_id"]), prop, use))
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--refresh", action="store_true")
+    props = proposals(ap.parse_args().refresh)
+    events = list(agent.EVENTS.values())
+    n = len(events)
+
+    rows = ["| 멈춤 기준 | 개입률 | 놓침 | 헛멈춤 | 놓친 건 | 헛멈춘 건 |", "|---|---|---|---|---|---|"]
+    for name, use in COMBOS:
+        stops = {e["id"]: did_stop(e, props[e["id"]], use) for e in events}
+        missed = [e["id"] for e in events if e["should_stop"] and not stops[e["id"]]]
+        false = [e["id"] for e in events if not e["should_stop"] and stops[e["id"]]]
+        rows.append(f"| {name} | {sum(stops.values())}/{n} | {len(missed)} | {len(false)} | "
+                    f"{', '.join(missed) or '-'} | {', '.join(false) or '-'} |")
+
+    detail = ["| 건 | 고객사 | 결품 → AI 제안 | 확신도 | 걸린 기준 (채택안) | 정답 |", "|---|---|---|---|---|---|"]
+    for e in events:
+        p = props[e["id"]]
+        orig = agent.PRODUCTS[e["product_id"]]
+        sub = agent.PRODUCTS.get(p["substitute_id"])
+        reasons = criteria.stop_reasons(orig, sub, p)
+        detail.append(f"| {e['id']} | {agent.CUSTOMERS[e['customer_id']]['type']} | "
+                      f"{orig['id']} → {p['substitute_id']} | {p['confidence']:.2f} | "
+                      f"{'; '.join(reasons) or '자동'} | {'멈춤' if e['should_stop'] else '자동'} ({e['why']}) |")
+
+    md = "\n".join(["# 멈춤 기준 비교", "", f"결품 {n}건, 모델 {agent.MODEL}, 정답 라벨은 data/stockouts.json 의 should_stop.",
+                    "", *rows, "", "## 건별 결과 (채택 기준)", "", *detail, ""])
+    (OUT / "criteria_eval.md").write_text(md, encoding="utf-8")
+    print(md)
+
+
+if __name__ == "__main__":
+    main()

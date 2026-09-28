@@ -1,0 +1,41 @@
+[
+  {"id": "P101", "group": "돈육 앞다리 불고기용", "name": "한돈 앞다리 불고기용 (가온미트)", "spec": "2kg/팩, 두께 3mm", "origin": "국내산", "allergens": ["돼지고기"], "storage": "냉장", "unit": "kg", "unit_price": 11800, "supplier": "가온미트", "in_stock": false},
+  {"id": "P102", "group": "돈육 앞다리 불고기용", "name": "한돈 앞다리 불고기용 (도담축산)", "spec": "2kg/팩, 두께 3mm", "origin": "국내산", "allergens": ["돼지고기"], "storage": "냉장", "unit": "kg", "unit_price": 12300, "supplier": "도담축산", "in_stock": true},
+  {"id": "P103", "group": "돈육 앞다리 불고기용", "name": "수입 앞다리 불고기용 (이베리아푸드)", "spec": "2kg/팩, 두께 3mm", "origin": "스페인산", "allergens": ["돼지고기"], "storage": "냉장", "unit": "kg", "unit_price": 8900, "supplier": "이베리아푸드", "in_stock": true},
+
+  {"id": "P201", "group": "부침용 두부", "name": "국산콩 부침두부 (콩마을)", "spec": "3kg/판", "origin": "대두: 국산", "allergens": ["대두"], "storage": "냉장", "unit": "판", "unit_price": 6500, "supplier": "콩마을", "in_stock": false},
+  {"id": "P202", "group": "부침용 두부", "name": "부침두부 (한빛식품)", "spec": "3kg/판", "origin": "대두: 미국산", "allergens": ["대두"], "storage": "냉장", "unit": "판", "unit_price": 4800, "supplier": "한빛식품", "in_stock": true},
+  {"id": "P203", "group": "부침용 두부", "name": "국산콩 부침두부 (들녘)", "spec": "3kg/판", "origin": "대두: 국산", "allergens": ["대두"], "storage": "냉장", "unit": "판", "unit_price": 6900, "supplier": "들녘", "in_stock": false},
+
+  {"id": "P301", "group": "급식용 등심돈까스", "name": "등심돈까스 급식용 (바삭푸드)", "spec": "1.3kg(10장)/봉", "origin": "돼지고기: 국내산", "allergens": ["돼지고기", "밀", "대두", "난류"], "storage": "냉동", "unit": "봉", "unit_price": 13900, "supplier": "바삭푸드", "in_stock": false},
+  {"id": "P302", "group": "급식용 등심돈까스", "name": "등심돈까스 급식용 (황금튀김)", "spec": "1.3kg(10장)/봉, 빵가루에 탈지분유 함유", "origin": "돼지고기: 국내산", "allergens": ["돼지고기", "밀", "대두", "난류", "우유"], "storage": "냉동", "unit": "봉", "unit_price": 14200, "supplier": "황금튀김", "in_stock": true},
+
+  {"id": "P501", "group": "계란 30구", "name": "특란 30구 (햇살농장)", "spec": "특란 30구/판", "origin": "국내산", "allergens": ["난류"], "storage": "냉장", "unit": "판", "unit_price": 7900, "supplier": "햇살농장", "in_stock": false},
+  {"id": "P502", "group": "계란 30구", "name": "대란 30구 (초원양계)", "spec": "대란 30구/판", "origin": "국내산", "allergens": ["난류"], "storage": "냉장", "unit": "판", "unit_price": 7400, "supplier": "초원양계", "in_stock": true},
+
+  {"id": "P601", "group": "냉동 닭가슴살", "name": "국내산 닭가슴살 (하림목장)", "spec": "2kg/봉, 정육", "origin": "국내산", "allergens": ["닭고기"], "storage": "냉동", "unit": "kg", "unit_price": 7900, "supplier": "하림목장", "in_stock": false},
+  {"id": "P602", "group": "냉동 닭가슴살", "name": "브라질산 닭가슴살 (글로벌미트)", "spec": "2kg/봉, 정육", "origin": "브라질산", "allergens": ["닭고기"], "storage": "냉동", "unit": "kg", "unit_price": 4900, "supplier": "글로벌미트", "in_stock": true},
+  {"id": "P603", "group": "냉동 닭가슴살", "name": "국내산 닭안심 (참닭)", "spec": "2kg/봉, 정육(안심)", "origin": "국내산", "allergens": ["닭고기"], "storage": "냉동", "unit": "kg", "unit_price": 8600, "supplier": "참닭", "in_stock": true},
+
+  {"id": "P701", "group": "냉동 우동면", "name": "사누끼 우동면 (면사랑)", "spec": "230g×5입/봉", "origin": "밀: 호주산", "allergens": ["밀"], "storage": "냉동", "unit": "봉", "unit_price": 4200, "supplier": "면사랑", "in_stock": false},
+  {"id": "P702", "group": "냉동 우동면", "name": "우동면 (가락식품)", "spec": "230g×5입/봉, 대두유 사용", "origin": "밀: 호주산", "allergens": ["밀", "대두"], "storage": "냉동", "unit": "봉", "unit_price": 4300, "supplier": "가락식품", "in_stock": true},
+  {"id": "P703", "group": "냉동 우동면", "name": "프리미엄 사누끼 우동면 (일품면)", "spec": "250g×5입/봉", "origin": "밀: 호주산", "allergens": ["밀"], "storage": "냉동", "unit": "봉", "unit_price": 4900, "supplier": "일품면", "in_stock": true},
+
+  {"id": "P801", "group": "백미 20kg", "name": "신동진 백미 20kg (호남RPC)", "spec": "20kg/포, 단일품종 상등급", "origin": "국내산", "allergens": [], "storage": "실온", "unit": "포", "unit_price": 62000, "supplier": "호남RPC", "in_stock": false},
+  {"id": "P802", "group": "백미 20kg", "name": "혼합미 백미 20kg (들판RPC)", "spec": "20kg/포, 혼합품종 보통등급", "origin": "국내산", "allergens": [], "storage": "실온", "unit": "포", "unit_price": 54000, "supplier": "들판RPC", "in_stock": true},
+
+  {"id": "P901", "group": "양배추", "name": "양배추 8kg망 (해남농협)", "spec": "8kg/망, 3구", "origin": "국내산(전남 해남)", "allergens": [], "storage": "냉장", "unit": "망", "unit_price": 9500, "supplier": "해남농협", "in_stock": false},
+  {"id": "P902", "group": "양배추", "name": "양배추 8kg망 (제주농협)", "spec": "8kg/망, 3구", "origin": "국내산(제주)", "allergens": [], "storage": "냉장", "unit": "망", "unit_price": 9900, "supplier": "제주농협", "in_stock": true},
+
+  {"id": "P1001", "group": "업소용 참치캔", "name": "라이트 스탠다드 참치 1.88kg (바다원)", "spec": "1.88kg/캔", "origin": "참치: 원양산", "allergens": ["대두"], "storage": "실온", "unit": "캔", "unit_price": 23500, "supplier": "바다원", "in_stock": false},
+  {"id": "P1002", "group": "업소용 참치캔", "name": "라이트 참치 1.88kg (오션푸드)", "spec": "1.88kg/캔", "origin": "참치: 원양산", "allergens": ["대두"], "storage": "실온", "unit": "캔", "unit_price": 24200, "supplier": "오션푸드", "in_stock": true},
+
+  {"id": "P1101", "group": "굴소스", "name": "굴소스 2.2kg (차이나쿡)", "spec": "2.2kg/병", "origin": "굴추출물: 중국산", "allergens": ["굴", "밀", "대두"], "storage": "실온", "unit": "병", "unit_price": 12000, "supplier": "차이나쿡", "in_stock": false},
+  {"id": "P1102", "group": "굴소스", "name": "굴소스 2.2kg (이금기푸드)", "spec": "2.2kg/병", "origin": "굴추출물: 중국산", "allergens": ["굴", "밀", "대두"], "storage": "실온", "unit": "병", "unit_price": 13600, "supplier": "이금기푸드", "in_stock": true},
+
+  {"id": "P1201", "group": "고등어 순살", "name": "생물 고등어 순살 (통영수산)", "spec": "1kg/팩, 가시 제거", "origin": "국내산", "allergens": ["고등어"], "storage": "냉장", "unit": "kg", "unit_price": 14500, "supplier": "통영수산", "in_stock": false},
+  {"id": "P1202", "group": "고등어 순살", "name": "냉동 고등어 순살 (부산수산)", "spec": "1kg/팩, 가시 제거, 급속냉동(해동 12시간 필요)", "origin": "국내산", "allergens": ["고등어"], "storage": "냉동", "unit": "kg", "unit_price": 14200, "supplier": "부산수산", "in_stock": true},
+
+  {"id": "P1301", "group": "양조간장 13L", "name": "저염 양조간장 13L (한국장류)", "spec": "13L/통, 나트륨 25% 저감", "origin": "대두: 외국산", "allergens": ["대두", "밀"], "storage": "실온", "unit": "통", "unit_price": 38000, "supplier": "한국장류", "in_stock": false},
+  {"id": "P1302", "group": "양조간장 13L", "name": "양조간장 13L (대한장류)", "spec": "13L/통, 일반", "origin": "대두: 외국산", "allergens": ["대두", "밀"], "storage": "실온", "unit": "통", "unit_price": 36000, "supplier": "대한장류", "in_stock": true}
+]
