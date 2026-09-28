@@ -13,5 +13,5 @@
   - `python evaluate.py` 가 `output/criteria_eval.md` 생성
 - [x] **4. 웹 데모** [선행: 2] — Streamlit 대기 목록·상세·네 가지 응답·처리 결과
   - 127.0.0.1 에서 실행해 대기 건 하나를 승인하고 outbox 에 기록되는 것 확인
-- [ ] **5. README·REPORT·공개 저장소** [선행: 3, 4]
+- [x] **5. README·REPORT·공개 저장소** [선행: 3, 4]
   - REPORT 에 구조도·기준·실행 결과·화면 캡처, `gh repo view` 로 공개 확인
