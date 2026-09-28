@@ -161,12 +161,19 @@ def check(state):
     return {"stop_reasons": reasons}
 
 
+def if_approved(customer, orig, sub, qty):
+    """승인하면 바깥에서 일어나는 일. 담당자가 대체품을 바꾸면 화면이 이 함수로 다시 계산한다."""
+    if sub is None:
+        return "대체품이 없어 승인할 수 없습니다. 반려하면 BM 수동 처리 목록으로 넘어갑니다."
+    old, new = orig["unit_price"] * qty, sub["unit_price"] * qty
+    return (f"{customer['name']}에 안내문이 발송되고, 발주가 '{orig['name']}'에서 '{sub['name']}'(으)로 "
+            f"바뀝니다 (수량 {qty}{orig['unit']}, 금액 {old:,}원 → {new:,}원, {new - old:+,}원).")
+
+
 def review_payload(state):
     """승인 화면에 보일 내용. 요청 원문·핵심 정보·판정과 근거·멈춘 이유·통과 시 결과."""
     ev, orig, prop = state["event"], state["original"], state["proposal"]
     sub = PRODUCTS.get(prop["substitute_id"])
-    old = orig["unit_price"] * ev["qty"]
-    new = sub["unit_price"] * ev["qty"] if sub else None
     return {
         "event_id": ev["id"],
         "customer": state["customer"],
@@ -178,11 +185,7 @@ def review_payload(state):
         "substitute": sub,
         "proposal": prop,
         "stop_reasons": state["stop_reasons"],
-        "if_approved": (
-            f"{state['customer']['name']}에 안내문이 발송되고, 발주가 '{orig['name']}'에서 '{sub['name']}'(으)로 "
-            f"바뀝니다 (수량 {ev['qty']}{orig['unit']}, 금액 {old:,}원 → {new:,}원, {new - old:+,}원)."
-            if sub else "대체품이 없어 승인할 수 없습니다. 반려하면 BM 수동 처리 목록으로 넘어갑니다."
-        ),
+        "if_approved": if_approved(state["customer"], orig, sub, ev["qty"]),
         "candidates": state["candidates"],
         "retry_left": MAX_RETRY - state.get("retry_count", 0),
     }

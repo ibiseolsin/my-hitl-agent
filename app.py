@@ -101,7 +101,8 @@ with tab_wait:
             for r in p["stop_reasons"]:
                 st.error(r, icon="⛔")
             st.markdown("**통과시키면**")
-            st.warning(p["if_approved"], icon="📤")
+            approved_box = st.empty()   # 수정 후 승인에서 대체품을 바꾸면 아래에서 다시 채운다
+            approved_box.warning(p["if_approved"], icon="📤")
 
             st.markdown("**응답**")
             action = st.radio("응답", ["승인", "수정 후 승인", "반려", "다시 판정"], horizontal=True,
@@ -116,6 +117,10 @@ with tab_wait:
                                     format_func=lambda i: next(f"{c['name']} ({c['unit_price']:,}원)"
                                                                for c in p["candidates"] if c["id"] == i),
                                     key=f"pick-{eid}")
+                if sub is None or pick != sub["id"]:
+                    picked = agent.PRODUCTS[pick]
+                    approved_box.warning("(수정안 기준) " + agent.if_approved(p["customer"], orig, picked, p["qty"]),
+                                         icon="📤")
                 notice = st.text_area("안내문", prop["notice"], height=160, key=f"notice-{eid}")
                 # 대체품만 바꾸고 안내문을 그대로 두면 다른 상품 설명이 고객사에 나간다.
                 stale = (sub is None or pick != sub["id"]) and notice.strip() == prop["notice"].strip()

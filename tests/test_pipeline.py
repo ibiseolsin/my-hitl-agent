@@ -94,3 +94,11 @@ def test_start_is_idempotent(app, tmp_path):
     agent.start(app, "S01")
     assert agent.start(app, "S01") is None
     assert len(lines(tmp_path, "outbox.jsonl")) == 1
+
+
+def test_if_approved_follows_the_chosen_substitute():
+    ev, cust = agent.EVENTS["S06"], agent.CUSTOMERS["C04"]
+    orig = agent.PRODUCTS["P701"]
+    text = agent.if_approved(cust, orig, agent.PRODUCTS["P703"], ev["qty"])
+    assert "프리미엄 사누끼 우동면" in text and "210,000원 → 245,000원, +35,000원" in text
+    assert "승인할 수 없습니다" in agent.if_approved(cust, orig, None, ev["qty"])
